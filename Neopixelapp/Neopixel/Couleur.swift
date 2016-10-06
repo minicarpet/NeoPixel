@@ -10,6 +10,7 @@ import UIKit
 import CoreBluetooth
 import AVFoundation
 
+var numFunction = 0
 var Programs = [[UInt32]]()
 var buffer: [UInt32] = [0, 0, 0, 0, 0]
 var numData = 0
@@ -177,11 +178,14 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
             numData += 1
             if numData == 5 {
                 numData = 0
-                if buffer[0] == 0 && buffer[1] == 1 && buffer[2] == 2 && buffer[3] == 3 && buffer[4] == 4 {
+                if buffer[0] == 0 && buffer[1] == 1 && buffer[2] == 0 && buffer[3] == 0 && buffer[4] != 0 {
+                    numFunction = buffer[4]
                     Programs.removeAll(keepingCapacity: false)
                 } else {
                     Programs.append(buffer)
-                    synchro = true
+                    if Programs.count == numFunction {
+                        synchro = true
+                    }
                 }
             }
         } else {
