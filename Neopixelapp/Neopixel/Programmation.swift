@@ -14,6 +14,9 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     @IBOutlet var EditButton: UIBarButtonItem!
     @IBOutlet var NavigationBar: UINavigationBar!
     @IBOutlet var TableView: UITableView!
+    @IBOutlet var LoadLabel: UILabel!
+    @IBOutlet var LoadActivity: UIActivityIndicatorView!
+    @IBOutlet var LoadProgress: UIProgressView!
     
     let refreshControl = UIRefreshControl()
     var grayViewEffect = UIVisualEffectView()
@@ -27,8 +30,12 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         CM.delegate = self
         refreshControl.attributedTitle = NSAttributedString(string: "Tirer pour changer la luminosité")
         refreshControl.addTarget(self, action: #selector(self.changeBrightness), for: UIControlEvents.valueChanged)
-        
         self.TableView.addSubview(refreshControl)
+        
+        LoadLabel.isHidden = false
+        LoadActivity.isHidden = false
+        LoadProgress.isHidden = false
+        
         myPeripheral?.delegate = self
         TableView.dataSource = self
     }
@@ -36,6 +43,15 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if synchro {
+            LoadLabel.isHidden = true
+            LoadActivity.isHidden = true
+            LoadProgress.isHidden = true
+        } else {
+            LoadLabel.isHidden = false
+            LoadActivity.isHidden = false
+            LoadProgress.isHidden = false
+        }
         CM.delegate = self
         myPeripheral?.delegate = self
         TableView.reloadData()
@@ -169,18 +185,27 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
             TxCarac?.value?.copyBytes(to: &array, count: MemoryLayout<UInt32>.size)
             var value: UInt32 = 0
             memcpy(&value, array, 4)
-            RxLabel.text = String(value)
             buffer[numData] = value
             numData += 1
             if numData == 5 {
                 numData = 0
                 if buffer[0] == 0 && buffer[1] == 1 && buffer[2] == 0 && buffer[3] == 0 && buffer[4] != 0 {
-                    numFunction = buffer[4]
+                    numFunction = Int(buffer[4])
+                    LoadLabel.isHidden = false
+                    LoadActivity.isHidden = false
+                    LoadProgress.isHidden = false
+                    LoadLabel.isHidden = false
+                    LoadActivity.startAnimating()
+                    LoadProgress.setProgress(0, animated: true)
                     Programs.removeAll(keepingCapacity: false)
                 } else {
                     Programs.append(buffer)
+                    LoadProgress.setProgress(Float(Programs.count/numFunction), animated: true)
                     if Programs.count == numFunction {
                         synchro = true
+                        LoadLabel.isHidden = true
+                        LoadActivity.isHidden = true
+                        LoadProgress.isHidden = true
                     }
                 }
             }

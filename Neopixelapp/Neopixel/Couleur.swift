@@ -29,24 +29,39 @@ let Names = [
 class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     @IBOutlet var subView: UIView!
+    @IBOutlet var LoadLabel: UILabel!
+    @IBOutlet var LoadActivity: UIActivityIndicatorView!
+    @IBOutlet var LoadProgress: UIProgressView!
+    
     var AlertBLE = UIAlertController()
     var wheelColor: SwiftHSVColorPicker? = nil
     var grayViewEffect = UIVisualEffectView()
     let CM = CBCentralManager()
     
-    @IBOutlet var RxLabel: UILabel!
     var soundFileURL: NSURL!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         subView.backgroundColor = UIColor.white
+        LoadLabel.isHidden = false
+        LoadActivity.isHidden = false
+        LoadProgress.isHidden = false
         CM.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if synchro {
+            LoadLabel.isHidden = true
+            LoadActivity.isHidden = true
+            LoadProgress.isHidden = true
+        } else {
+            LoadLabel.isHidden = false
+            LoadActivity.isHidden = false
+            LoadProgress.isHidden = false
+        }
         CM.delegate = self
         myPeripheral?.delegate = self
     }
@@ -173,18 +188,27 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
             TxCarac?.value?.copyBytes(to: &array, count: MemoryLayout<UInt32>.size)
             var value: UInt32 = 0
             memcpy(&value, array, 4)
-            RxLabel.text = String(value)
             buffer[numData] = value
             numData += 1
             if numData == 5 {
                 numData = 0
                 if buffer[0] == 0 && buffer[1] == 1 && buffer[2] == 0 && buffer[3] == 0 && buffer[4] != 0 {
-                    numFunction = buffer[4]
+                    numFunction = Int(buffer[4])
+                    LoadLabel.isHidden = false
+                    LoadActivity.isHidden = false
+                    LoadProgress.isHidden = false
+                    LoadLabel.isHidden = false
+                    LoadActivity.startAnimating()
+                    LoadProgress.setProgress(0, animated: true)
                     Programs.removeAll(keepingCapacity: false)
                 } else {
                     Programs.append(buffer)
+                    LoadProgress.setProgress(Float(Programs.count/numFunction), animated: true)
                     if Programs.count == numFunction {
                         synchro = true
+                        LoadLabel.isHidden = true
+                        LoadActivity.isHidden = true
+                        LoadProgress.isHidden = true
                     }
                 }
             }

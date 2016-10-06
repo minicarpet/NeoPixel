@@ -50,28 +50,50 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mrb-6I-C6m" id="Arx-78-H4i">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="tintColor" red="0.99533933401107788" green="0.17171552777290344" blue="0.0075672250241041183" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2z7-0n-4fM">
+                                <rect key="frame" x="0.0" y="616" width="375" height="2"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronisation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPU-97-UY5">
+                                <rect key="frame" x="125.5" y="569" width="123" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ObE-u5-uul">
+                                <rect key="frame" x="177" y="590" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ObE-u5-uul" firstAttribute="centerX" secondItem="dVn-dz-LOf" secondAttribute="centerX" id="0hd-OZ-6uW"/>
                             <constraint firstItem="xWy-xZ-NjK" firstAttribute="top" secondItem="dVn-dz-LOf" secondAttribute="bottom" id="4WN-w6-dtn"/>
                             <constraint firstItem="dVn-dz-LOf" firstAttribute="centerX" secondItem="02V-s2-jWP" secondAttribute="centerX" id="DJG-nY-kkR"/>
+                            <constraint firstItem="xWy-xZ-NjK" firstAttribute="top" secondItem="2z7-0n-4fM" secondAttribute="bottom" id="DgM-O1-hsE"/>
                             <constraint firstItem="y53-N7-dIe" firstAttribute="top" secondItem="qsc-sN-prE" secondAttribute="bottom" id="MaE-e2-3Oi"/>
+                            <constraint firstItem="2z7-0n-4fM" firstAttribute="centerX" secondItem="02V-s2-jWP" secondAttribute="centerX" id="Slr-Gl-7ZN"/>
                             <constraint firstItem="dVn-dz-LOf" firstAttribute="top" secondItem="qsc-sN-prE" secondAttribute="bottom" constant="44" id="U3o-oK-MfY"/>
                             <constraint firstItem="dVn-dz-LOf" firstAttribute="width" secondItem="02V-s2-jWP" secondAttribute="width" id="Ybl-KK-TOd"/>
                             <constraint firstItem="y53-N7-dIe" firstAttribute="width" secondItem="02V-s2-jWP" secondAttribute="width" id="bfj-ED-yqH"/>
                             <constraint firstItem="y53-N7-dIe" firstAttribute="centerX" secondItem="02V-s2-jWP" secondAttribute="centerX" id="fNz-bC-tsj"/>
+                            <constraint firstItem="2z7-0n-4fM" firstAttribute="top" secondItem="ObE-u5-uul" secondAttribute="bottom" constant="6" id="kwu-kN-REB"/>
+                            <constraint firstItem="2z7-0n-4fM" firstAttribute="width" secondItem="02V-s2-jWP" secondAttribute="width" id="qQN-po-fXv"/>
+                            <constraint firstItem="lPU-97-UY5" firstAttribute="centerX" secondItem="dVn-dz-LOf" secondAttribute="centerX" id="qf7-Sp-V5n"/>
+                            <constraint firstItem="ObE-u5-uul" firstAttribute="top" secondItem="lPU-97-UY5" secondAttribute="bottom" id="yLc-ao-ItJ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Programmation" id="l3D-rG-UmZ"/>
                     <connections>
                         <outlet property="EditButton" destination="MJN-3B-gEu" id="W10-JY-zD8"/>
+                        <outlet property="LoadActivity" destination="ObE-u5-uul" id="cRP-CG-5Iu"/>
+                        <outlet property="LoadLabel" destination="lPU-97-UY5" id="FnE-QT-6fr"/>
+                        <outlet property="LoadProgress" destination="2z7-0n-4fM" id="F1w-dz-MUd"/>
                         <outlet property="NavigationBar" destination="y53-N7-dIe" id="Y0m-OM-INn"/>
                         <outlet property="TableView" destination="dVn-dz-LOf" id="UnC-sZ-ANT"/>
                     </connections>
@@ -186,8 +208,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKJ-qJ-0TF">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdM-gV-CqZ">
-                                        <rect key="frame" x="166.5" y="569" width="42" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronisation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdM-gV-CqZ">
+                                        <rect key="frame" x="126" y="545" width="123" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -198,19 +220,32 @@
                                     <constraint firstItem="fdM-gV-CqZ" firstAttribute="centerX" secondItem="qKJ-qJ-0TF" secondAttribute="centerX" id="fjd-fL-qtb"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yXs-AN-GbR">
+                                <rect key="frame" x="-0.5" y="616" width="375" height="2"/>
+                            </progressView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RBU-bs-rnb">
+                                <rect key="frame" x="177" y="588" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="muo-bw-mcj" firstAttribute="top" secondItem="fdM-gV-CqZ" secondAttribute="bottom" constant="8.5" id="0JJ-dA-ahP"/>
+                            <constraint firstItem="yXs-AN-GbR" firstAttribute="width" secondItem="qKJ-qJ-0TF" secondAttribute="width" id="ALo-3H-sjc"/>
                             <constraint firstItem="qKJ-qJ-0TF" firstAttribute="top" secondItem="anH-Ci-GDz" secondAttribute="bottom" id="Qrg-NO-hNQ"/>
                             <constraint firstItem="muo-bw-mcj" firstAttribute="top" secondItem="qKJ-qJ-0TF" secondAttribute="bottom" id="bGH-hS-J58"/>
+                            <constraint firstItem="yXs-AN-GbR" firstAttribute="centerX" secondItem="LLy-iW-VHk" secondAttribute="centerX" id="g3Q-9o-MAp"/>
+                            <constraint firstItem="RBU-bs-rnb" firstAttribute="centerX" secondItem="qKJ-qJ-0TF" secondAttribute="centerX" id="idj-gZ-jJU"/>
+                            <constraint firstItem="yXs-AN-GbR" firstAttribute="top" secondItem="RBU-bs-rnb" secondAttribute="bottom" constant="8" id="le0-lA-5Mk"/>
+                            <constraint firstItem="muo-bw-mcj" firstAttribute="top" secondItem="yXs-AN-GbR" secondAttribute="bottom" id="lun-RY-DkR"/>
                             <constraint firstItem="qKJ-qJ-0TF" firstAttribute="centerX" secondItem="LLy-iW-VHk" secondAttribute="centerX" id="s0o-Nc-7Ne"/>
+                            <constraint firstItem="RBU-bs-rnb" firstAttribute="top" secondItem="fdM-gV-CqZ" secondAttribute="bottom" constant="2.5" id="vuF-ZV-Jxc"/>
                             <constraint firstItem="qKJ-qJ-0TF" firstAttribute="width" secondItem="LLy-iW-VHk" secondAttribute="width" id="wNI-Av-fwC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Couleur" id="pxw-0e-hbH"/>
                     <connections>
-                        <outlet property="RxLabel" destination="fdM-gV-CqZ" id="BKd-kW-719"/>
+                        <outlet property="LoadActivity" destination="RBU-bs-rnb" id="rbW-sR-VvO"/>
+                        <outlet property="LoadLabel" destination="fdM-gV-CqZ" id="e1S-A6-Aw7"/>
+                        <outlet property="LoadProgress" destination="yXs-AN-GbR" id="3fo-9D-AfG"/>
                         <outlet property="TabBarItem" destination="pxw-0e-hbH" id="96G-qD-QE8"/>
                         <outlet property="subView" destination="qKJ-qJ-0TF" id="nqI-NY-XDc"/>
                     </connections>
