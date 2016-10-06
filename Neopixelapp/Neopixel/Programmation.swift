@@ -169,16 +169,19 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
             TxCarac?.value?.copyBytes(to: &array, count: MemoryLayout<UInt32>.size)
             var value: UInt32 = 0
             memcpy(&value, array, 4)
+            RxLabel.text = String(value)
             buffer[numData] = value
             numData += 1
             if numData == 5 {
                 numData = 0
-                if buffer[0] == 0 && buffer[1] == 1 && buffer[2] == 2 && buffer[3] == 3 && buffer[4] == 4 {
+                if buffer[0] == 0 && buffer[1] == 1 && buffer[2] == 0 && buffer[3] == 0 && buffer[4] != 0 {
+                    numFunction = buffer[4]
                     Programs.removeAll(keepingCapacity: false)
                 } else {
                     Programs.append(buffer)
-                    TableView.reloadData()
-                    synchro = true
+                    if Programs.count == numFunction {
+                        synchro = true
+                    }
                 }
             }
         } else {
@@ -271,6 +274,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     }
     
     func sendData() {
+        numFunction = Programs.count
         myPeripheral?.writeValue("Start".data(using: String.Encoding.ascii)!, for: RxCarac!, type: CBCharacteristicWriteType.withResponse)
         for program in Programs {
             myPeripheral?.writeValue(String(program[0]).data(using: String.Encoding.ascii)!, for: RxCarac!, type: CBCharacteristicWriteType.withResponse)
