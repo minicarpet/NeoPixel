@@ -341,7 +341,7 @@ void sendData() {
   TxChar.setValue(0);
   TxChar.setValue(0);
   TxChar.setValue(int(nombreFc));
-  for(int i=0; i<256; i++) {
+  for(int i=0; i<nombreFc; i++) {
     if (Fonction[i][0] != 0) {
       Serial.print("Send data of function : ");
       Serial.println(i);
@@ -351,6 +351,8 @@ void sendData() {
       TxChar.setValue(Fonction[i][2]);
       TxChar.setValue(Fonction[i][3]);
       TxChar.setValue(Fonction[i][4]);
+    } else {
+      //ERROR function is programmed but undefined
     }
   }
 }
