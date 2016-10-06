@@ -11,7 +11,6 @@ import CoreBluetooth
 
 class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var subView: UIView!
     @IBOutlet var EditButton: UIBarButtonItem!
     @IBOutlet var NavigationBar: UINavigationBar!
     @IBOutlet var TableView: UITableView!
@@ -47,7 +46,10 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         
         if myPeripheral == nil {
             grayViewEffect.effect = UIBlurEffect(style: .dark)
-            grayViewEffect.frame = subView.frame //Les frames ne sont pas les memes
+            let origin = CGPoint(x: 0, y: UIApplication.shared.statusBarFrame.height)
+            print(UIApplication.shared.statusBarFrame.height)
+            let size = CGSize(width: self.view.frame.width, height: self.view.frame.height - UIApplication.shared.statusBarFrame.height - NavigationBar.frame.size.height)
+            grayViewEffect.frame = CGRect(origin: origin, size: size)
             self.view.addSubview(grayViewEffect)
         }
     }
