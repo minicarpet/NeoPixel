@@ -29,6 +29,7 @@ BLEService uartService("19B1001-E8F2-537E-4F6C-D104768A1214"); // create service
 BLECharacteristic RxChar("19B1001-E8F2-537E-4F6C-D104768A1210", BLEWrite, 20);
 BLEUnsignedIntCharacteristic TxChar("19B1001-E8F2-537E-4F6C-D104768A1211", BLERead | BLENotify);
 
+char nombreFc = 0;
 int Fonction[256][5] = {
       {1, 255, 0, 0, 50},
       {1, 0, 255, 0, 50},
@@ -122,7 +123,7 @@ void execute(int toExecute, int red, int green, int blue, int delai) {
 }
 
 void readData() {
-  char nombreFc = EEPROM.read(0);
+  nombreFc = EEPROM.read(0);
   if (nombreFc == 0) {
     //If never write
     return; //We don't overwrite Fonction's array to keep some functions at the first lunch
@@ -153,7 +154,7 @@ void readData() {
 
 void record() {
   inc = 1;
-  for(int i=0; i<256; i++) {
+  for(int i=0; i<nombreFc; i++) {
     if (Fonction[i][0] != 0) {
       if (inc+5 <= EEPROM.length()) {
         EEPROM.update(inc++, Fonction[i][0]);
@@ -335,11 +336,11 @@ void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& charact
 }
 
 void sendData() {
-  TxChar.setValue(0);
+  TxChar.setValue(0); //Send some protocol to detect that Arduino will send datas
   TxChar.setValue(1);
-  TxChar.setValue(2);
-  TxChar.setValue(3);
-  TxChar.setValue(4);
+  TxChar.setValue(0);
+  TxChar.setValue(0);
+  TxChar.setValue(int(nombreFc));
   for(int i=0; i<256; i++) {
     if (Fonction[i][0] != 0) {
       Serial.print("Send data of function : ");
