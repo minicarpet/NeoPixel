@@ -21,13 +21,10 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     let refreshControl = UIRefreshControl()
     var grayViewEffect = UIVisualEffectView()
     var AlertBLE = UIAlertController()
-    
-    let CM = CBCentralManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        CM.delegate = self
         refreshControl.attributedTitle = NSAttributedString(string: "Tirer pour changer la luminosité")
         refreshControl.addTarget(self, action: #selector(self.changeBrightness), for: UIControlEvents.valueChanged)
         self.TableView.addSubview(refreshControl)
@@ -36,23 +33,25 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         LoadActivity.isHidden = false
         LoadProgress.isHidden = false
         
-        myPeripheral?.delegate = self
         TableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if synchro {
-            LoadLabel.isHidden = true
-            LoadActivity.isHidden = true
-            LoadProgress.isHidden = true
-        } else {
-            LoadLabel.isHidden = false
-            LoadActivity.isHidden = false
-            LoadProgress.isHidden = false
-        }
-        CM.delegate = self
+        /*print("change delegate")
+        CM = CBCentralManager(delegate: self, queue: nil)
+        centralManagerDidUpdateState(CM)
+        myPeripheral?.delegate = self
+        TableView.reloadData()*/
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print("change delegate")
+        CM = CBCentralManager(delegate: self, queue: nil)
+        centralManagerDidUpdateState(CM)
         myPeripheral?.delegate = self
         TableView.reloadData()
     }
@@ -87,6 +86,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("delegate2")
         if central.state.rawValue == 4 {
             // BLE IS OFF
             let AlertMessage = UIAlertController(title: "Bluetooth désactivé", message: "Merci d'activer le Bluetooth", preferredStyle: .alert)
@@ -98,15 +98,17 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
             // BLE IS ON
             if myPeripheral != nil {
                 if CM.retrieveConnectedPeripherals(withServices: [(myPeripheral?.services?.first?.uuid)!]).count == 0 {
-                    CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+                    CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
                 }
             } else {
-                CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+                print("scan")
+                CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
             }
         }
     }
     
     private func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : AnyObject], rssi RSSI: NSNumber) {
+        print(peripheral.name)
         if peripheral.name == "NeoPixel" {
             myPeripheral = peripheral
             CM.connect(myPeripheral!, options: nil)
@@ -139,6 +141,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("Dsiconnected")
         myPeripheral = nil
         myPeripheral?.delegate = nil
         AlertBLE = UIAlertController()
@@ -146,8 +149,16 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         AlertBLE.message = "Nous avons perdu la connexion avec l'Arduino"
         AlertBLE.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(alert: UIAlertAction!) in
             synchro = false
+            print("Here")
+            Programs.removeAll(keepingCapacity: false)
+            self.TableView.reloadData()
             self.view.addSubview(self.grayViewEffect)
-            self.CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+            self.LoadProgress.setProgress(0, animated: false)
+            self.LoadActivity.stopAnimating()
+            self.LoadLabel.isHidden = false
+            self.LoadActivity.isHidden = false
+            self.LoadProgress.isHidden = false
+            CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }))
         self.present(AlertBLE, animated: true, completion: nil)
     }
@@ -200,6 +211,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
                     Programs.removeAll(keepingCapacity: false)
                 } else {
                     Programs.append(buffer)
+                    TableView.reloadData()
                     LoadProgress.setProgress(Float(Programs.count/numFunction), animated: true)
                     if Programs.count == numFunction {
                         synchro = true
@@ -293,11 +305,6 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         return Names[Index]
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-    }
-    
     func sendData() {
         numFunction = Programs.count
         myPeripheral?.writeValue("Start".data(using: String.Encoding.ascii)!, for: RxCarac!, type: CBCharacteristicWriteType.withResponse)
@@ -332,6 +339,11 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
             slider.value = 0.5
             alertBrightness.view.addSubview(slider)
         })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 
     /*

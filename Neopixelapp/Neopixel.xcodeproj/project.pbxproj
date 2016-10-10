@@ -9,14 +9,6 @@
 /* Begin PBXBuildFile section */
 		B51F04101D185FCB00363D0C /* DefineFonctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51F040F1D185FCB00363D0C /* DefineFonctionView.swift */; };
 		B573A8E01D16ABE8004C79C2 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B573A8DF1D16ABE8004C79C2 /* TabBar.swift */; };
-		B5917AEF1D4BA4E2003D184C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5917AED1D4BA4E2003D184C /* Interface.storyboard */; };
-		B5917AF11D4BA4E2003D184C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5917AF01D4BA4E2003D184C /* Assets.xcassets */; };
-		B5917AF81D4BA4E2003D184C /* Neopixel Apple Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B5917AF71D4BA4E2003D184C /* Neopixel Apple Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B5917AFF1D4BA4E2003D184C /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5917AFE1D4BA4E2003D184C /* InterfaceController.swift */; };
-		B5917B011D4BA4E2003D184C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5917B001D4BA4E2003D184C /* ExtensionDelegate.swift */; };
-		B5917B031D4BA4E2003D184C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5917B021D4BA4E2003D184C /* NotificationController.swift */; };
-		B5917B051D4BA4E2003D184C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5917B041D4BA4E2003D184C /* Assets.xcassets */; };
-		B5917B091D4BA4E2003D184C /* Neopixel Apple Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B5917AEB1D4BA4E2003D184C /* Neopixel Apple Watch.app */; };
 		B595F9DF1D14716A00BD8918 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595F9DE1D14716A00BD8918 /* AppDelegate.swift */; };
 		B595F9E41D14716A00BD8918 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B595F9E21D14716A00BD8918 /* Main.storyboard */; };
 		B595F9E61D14716A00BD8918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B595F9E51D14716A00BD8918 /* Assets.xcassets */; };
@@ -31,42 +23,13 @@
 		B59A854E1D158D85005DB171 /* Programmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59A854D1D158D85005DB171 /* Programmation.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B5917AF91D4BA4E2003D184C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B595F9D31D14716A00BD8918 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B5917AF61D4BA4E2003D184C;
-			remoteInfo = "Neopixel Apple Watch Extension";
-		};
-		B5917B071D4BA4E2003D184C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B595F9D31D14716A00BD8918 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B5917AEA1D4BA4E2003D184C;
-			remoteInfo = "Neopixel Apple Watch";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		B5917B0D1D4BA4E2003D184C /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				B5917AF81D4BA4E2003D184C /* Neopixel Apple Watch Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5917B111D4BA4E2003D184C /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				B5917B091D4BA4E2003D184C /* Neopixel Apple Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,17 +39,6 @@
 /* Begin PBXFileReference section */
 		B51F040F1D185FCB00363D0C /* DefineFonctionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefineFonctionView.swift; sourceTree = "<group>"; };
 		B573A8DF1D16ABE8004C79C2 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
-		B5917AEB1D4BA4E2003D184C /* Neopixel Apple Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neopixel Apple Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5917AEE1D4BA4E2003D184C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		B5917AF01D4BA4E2003D184C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B5917AF21D4BA4E2003D184C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5917AF71D4BA4E2003D184C /* Neopixel Apple Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Neopixel Apple Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5917AFD1D4BA4E2003D184C /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		B5917AFE1D4BA4E2003D184C /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		B5917B001D4BA4E2003D184C /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		B5917B021D4BA4E2003D184C /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		B5917B041D4BA4E2003D184C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B5917B061D4BA4E2003D184C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B595F9DB1D14716A00BD8918 /* Neopixel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neopixel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B595F9DE1D14716A00BD8918 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B595F9E31D14716A00BD8918 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,13 +56,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B5917AF41D4BA4E2003D184C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B595F9D81D14716A00BD8918 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,43 +67,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B5917AEC1D4BA4E2003D184C /* Neopixel Apple Watch */ = {
-			isa = PBXGroup;
-			children = (
-				B5917AED1D4BA4E2003D184C /* Interface.storyboard */,
-				B5917AF01D4BA4E2003D184C /* Assets.xcassets */,
-				B5917AF21D4BA4E2003D184C /* Info.plist */,
-			);
-			path = "Neopixel Apple Watch";
-			sourceTree = "<group>";
-		};
-		B5917AFB1D4BA4E2003D184C /* Neopixel Apple Watch Extension */ = {
-			isa = PBXGroup;
-			children = (
-				B5917AFE1D4BA4E2003D184C /* InterfaceController.swift */,
-				B5917B001D4BA4E2003D184C /* ExtensionDelegate.swift */,
-				B5917B021D4BA4E2003D184C /* NotificationController.swift */,
-				B5917B041D4BA4E2003D184C /* Assets.xcassets */,
-				B5917B061D4BA4E2003D184C /* Info.plist */,
-				B5917AFC1D4BA4E2003D184C /* Supporting Files */,
-			);
-			path = "Neopixel Apple Watch Extension";
-			sourceTree = "<group>";
-		};
-		B5917AFC1D4BA4E2003D184C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B5917AFD1D4BA4E2003D184C /* PushNotificationPayload.apns */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		B595F9D21D14716A00BD8918 = {
 			isa = PBXGroup;
 			children = (
 				B595F9DD1D14716A00BD8918 /* Neopixel */,
-				B5917AEC1D4BA4E2003D184C /* Neopixel Apple Watch */,
-				B5917AFB1D4BA4E2003D184C /* Neopixel Apple Watch Extension */,
 				B595F9DC1D14716A00BD8918 /* Products */,
 				B595F9F01D1471B200BD8918 /* Frameworks */,
 			);
@@ -168,8 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				B595F9DB1D14716A00BD8918 /* Neopixel.app */,
-				B5917AEB1D4BA4E2003D184C /* Neopixel Apple Watch.app */,
-				B5917AF71D4BA4E2003D184C /* Neopixel Apple Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,40 +125,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B5917AEA1D4BA4E2003D184C /* Neopixel Apple Watch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B5917B0E1D4BA4E2003D184C /* Build configuration list for PBXNativeTarget "Neopixel Apple Watch" */;
-			buildPhases = (
-				B5917AE91D4BA4E2003D184C /* Resources */,
-				B5917B0D1D4BA4E2003D184C /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B5917AFA1D4BA4E2003D184C /* PBXTargetDependency */,
-			);
-			name = "Neopixel Apple Watch";
-			productName = "Neopixel Apple Watch";
-			productReference = B5917AEB1D4BA4E2003D184C /* Neopixel Apple Watch.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		B5917AF61D4BA4E2003D184C /* Neopixel Apple Watch Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B5917B0A1D4BA4E2003D184C /* Build configuration list for PBXNativeTarget "Neopixel Apple Watch Extension" */;
-			buildPhases = (
-				B5917AF31D4BA4E2003D184C /* Sources */,
-				B5917AF41D4BA4E2003D184C /* Frameworks */,
-				B5917AF51D4BA4E2003D184C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Neopixel Apple Watch Extension";
-			productName = "Neopixel Apple Watch Extension";
-			productReference = B5917AF71D4BA4E2003D184C /* Neopixel Apple Watch Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
 		B595F9DA1D14716A00BD8918 /* Neopixel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B595F9ED1D14716A00BD8918 /* Build configuration list for PBXNativeTarget "Neopixel" */;
@@ -261,7 +137,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B5917B081D4BA4E2003D184C /* PBXTargetDependency */,
 			);
 			name = Neopixel;
 			productName = Neopixel;
@@ -278,18 +153,6 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Logan Gallois";
 				TargetAttributes = {
-					B5917AEA1D4BA4E2003D184C = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = B2LU2VKT8D;
-						DevelopmentTeamName = "logan gallois";
-						ProvisioningStyle = Automatic;
-					};
-					B5917AF61D4BA4E2003D184C = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = B2LU2VKT8D;
-						DevelopmentTeamName = "logan gallois";
-						ProvisioningStyle = Automatic;
-					};
 					B595F9DA1D14716A00BD8918 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = B2LU2VKT8D;
@@ -312,30 +175,11 @@
 			projectRoot = "";
 			targets = (
 				B595F9DA1D14716A00BD8918 /* Neopixel */,
-				B5917AEA1D4BA4E2003D184C /* Neopixel Apple Watch */,
-				B5917AF61D4BA4E2003D184C /* Neopixel Apple Watch Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B5917AE91D4BA4E2003D184C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B5917AF11D4BA4E2003D184C /* Assets.xcassets in Resources */,
-				B5917AEF1D4BA4E2003D184C /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B5917AF51D4BA4E2003D184C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B5917B051D4BA4E2003D184C /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B595F9D91D14716A00BD8918 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -349,16 +193,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B5917AF31D4BA4E2003D184C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B5917B031D4BA4E2003D184C /* NotificationController.swift in Sources */,
-				B5917B011D4BA4E2003D184C /* ExtensionDelegate.swift in Sources */,
-				B5917AFF1D4BA4E2003D184C /* InterfaceController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B595F9D71D14716A00BD8918 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,28 +212,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		B5917AFA1D4BA4E2003D184C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B5917AF61D4BA4E2003D184C /* Neopixel Apple Watch Extension */;
-			targetProxy = B5917AF91D4BA4E2003D184C /* PBXContainerItemProxy */;
-		};
-		B5917B081D4BA4E2003D184C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B5917AEA1D4BA4E2003D184C /* Neopixel Apple Watch */;
-			targetProxy = B5917B071D4BA4E2003D184C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		B5917AED1D4BA4E2003D184C /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B5917AEE1D4BA4E2003D184C /* Base */,
-			);
-			name = Interface.storyboard;
-			sourceTree = "<group>";
-		};
 		B595F9E21D14716A00BD8918 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -419,72 +232,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		B5917B0B1D4BA4E2003D184C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				INFOPLIST_FILE = "Neopixel Apple Watch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Minicarpet.Neopixel.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Debug;
-		};
-		B5917B0C1D4BA4E2003D184C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				INFOPLIST_FILE = "Neopixel Apple Watch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Minicarpet.Neopixel.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Release;
-		};
-		B5917B0F1D4BA4E2003D184C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				IBSC_MODULE = Neopixel_Apple_Watch_Extension;
-				INFOPLIST_FILE = "Neopixel Apple Watch/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = Minicarpet.Neopixel.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Debug;
-		};
-		B5917B101D4BA4E2003D184C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				IBSC_MODULE = Neopixel_Apple_Watch_Extension;
-				INFOPLIST_FILE = "Neopixel Apple Watch/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = Minicarpet.Neopixel.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
-			};
-			name = Release;
-		};
 		B595F9EB1D14716A00BD8918 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -583,10 +330,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Neopixel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Minicarpet.Neopixel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -595,34 +344,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Neopixel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Minicarpet.Neopixel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B5917B0A1D4BA4E2003D184C /* Build configuration list for PBXNativeTarget "Neopixel Apple Watch Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B5917B0B1D4BA4E2003D184C /* Debug */,
-				B5917B0C1D4BA4E2003D184C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B5917B0E1D4BA4E2003D184C /* Build configuration list for PBXNativeTarget "Neopixel Apple Watch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B5917B0F1D4BA4E2003D184C /* Debug */,
-				B5917B101D4BA4E2003D184C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		B595F9D61D14716A00BD8918 /* Build configuration list for PBXProject "Neopixel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

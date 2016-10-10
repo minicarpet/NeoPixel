@@ -14,6 +14,7 @@ var numFunction = 0
 var Programs = [[UInt32]]()
 var buffer: [UInt32] = [0, 0, 0, 0, 0]
 var numData = 0
+var CM = CBCentralManager()
 var myPeripheral: CBPeripheral?
 var RxCarac: CBCharacteristic?
 var TxCarac: CBCharacteristic?
@@ -36,7 +37,6 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
     var AlertBLE = UIAlertController()
     var wheelColor: SwiftHSVColorPicker? = nil
     var grayViewEffect = UIVisualEffectView()
-    let CM = CBCentralManager()
     
     var soundFileURL: NSURL!
 
@@ -47,22 +47,13 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         LoadLabel.isHidden = false
         LoadActivity.isHidden = false
         LoadProgress.isHidden = false
-        CM.delegate = self
+        CM = CBCentralManager(delegate: self, queue: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if synchro {
-            LoadLabel.isHidden = true
-            LoadActivity.isHidden = true
-            LoadProgress.isHidden = true
-        } else {
-            LoadLabel.isHidden = false
-            LoadActivity.isHidden = false
-            LoadProgress.isHidden = false
-        }
-        CM.delegate = self
+        CM = CBCentralManager(delegate: self, queue: nil)
         myPeripheral?.delegate = self
     }
     
@@ -89,6 +80,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("delegate")
         if central.state.rawValue == 4 {
             // BLE IS OFF
             let AlertMessage = UIAlertController(title: "Bluetooth désactivé", message: "Merci d'activer le Bluetooth", preferredStyle: .alert)
@@ -109,6 +101,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        print(peripheral.name)
         if peripheral.name == "NeoPixel" {
             myPeripheral = peripheral
             CM.connect(myPeripheral!, options: nil)
@@ -134,9 +127,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         AlertBLE.title = "Arduino trouvée"
         AlertBLE.message = "Mais nous n'avons pas réussi a nous connecter.\n Merci de relancer l'application"
         if AlertBLE.actions.count == 0 {
-            AlertBLE.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(alert: UIAlertAction!) in
-                
-            }))
+            AlertBLE.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         }
         self.present(AlertBLE, animated: true, completion: nil)
     }
@@ -149,8 +140,13 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         AlertBLE.message = "Nous avons perdu la connexion avec l'Arduino"
         AlertBLE.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(alert: UIAlertAction!) in
             synchro = false
+            self.LoadProgress.setProgress(0, animated: false)
+            self.LoadActivity.stopAnimating()
+            self.LoadLabel.isHidden = false
+            self.LoadActivity.isHidden = false
+            self.LoadProgress.isHidden = false
             self.view.addSubview(self.grayViewEffect)
-            self.CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+            CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
         }))
         self.present(AlertBLE, animated: true, completion: nil)
     }
@@ -246,10 +242,12 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         myPeripheral?.writeValue(String(Int((wheelColor?.brightness)!*200)).data(using: String.Encoding.ascii)!, for: RxCarac!, type: CBCharacteristicWriteType.withResponse)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
+        print("viewDidDiasappear1")
         CM.stopScan()
+        CM = CBCentralManager()
     }
 
     /*

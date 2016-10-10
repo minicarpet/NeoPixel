@@ -302,6 +302,7 @@ void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& charact
   } else if (In == "End") {
     startEdit = false;
     ColorChoosen = false;
+    nombreFc = inc;
     record();
   } else if (startEdit) {
     Fonction[inc][inccolor] = In.toInt();
