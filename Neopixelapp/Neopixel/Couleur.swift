@@ -55,6 +55,11 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         
         CM = CBCentralManager(delegate: self, queue: nil)
         myPeripheral?.delegate = self
+        if synchro {
+            LoadLabel.isHidden = true
+            LoadActivity.isHidden = true
+            LoadProgress.isHidden = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -101,7 +106,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print(peripheral.name)
+        print(peripheral.name ?? "no Name")
         if peripheral.name == "NeoPixel" {
             myPeripheral = peripheral
             CM.connect(myPeripheral!, options: nil)

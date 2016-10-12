@@ -112,8 +112,11 @@ class DefineFonctionView: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             } else {
                 let hsv = HSV((wheelColor?.hue)!, (wheelColor?.saturation)!, (wheelColor?.brightness)!, (wheelColor?.alpha)!)
                 rgb = hsv2rgb(hsv: hsv)
+                rgb?.red = (rgb?.red)! < CGFloat(0.0) ? 0  : (rgb?.red)!
                 var red = UInt32((rgb?.red)! * 255)
+                rgb?.green = (rgb?.green)! < CGFloat(0.0) ? 0  : (rgb?.green)!
                 var green = UInt32((rgb?.green)! * 255)
+                rgb?.blue = (rgb?.blue)! < CGFloat(0.0) ? 0  : (rgb?.blue)!
                 var blue = UInt32((rgb?.blue)! * 255)
                 if red < 0 {
                     red = 0

@@ -124,6 +124,8 @@ void execute(int toExecute, int red, int green, int blue, int delai) {
 
 void readData() {
   nombreFc = EEPROM.read(0);
+  Serial.print("nb func : ");
+  Serial.println(int(nombreFc));
   if (nombreFc == 0) {
     //If never write
     return; //We don't overwrite Fonction's array to keep some functions at the first lunch
@@ -154,6 +156,9 @@ void readData() {
 
 void record() {
   inc = 1;
+  EEPROM.update(0, nombreFc);
+  Serial.print("number register : ");
+  Serial.println(int(nombreFc));
   for(int i=0; i<nombreFc; i++) {
     if (Fonction[i][0] != 0) {
       if (inc+5 <= EEPROM.length()) {
@@ -165,9 +170,6 @@ void record() {
       } else {
         //ERROR
       }
-    } else {
-      EEPROM.update(0, i);
-      break;
     }
   }
   inc = 0;
@@ -303,6 +305,8 @@ void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& charact
     startEdit = false;
     ColorChoosen = false;
     nombreFc = inc;
+    Serial.print("num func receive : ");
+    Serial.println(inc);
     record();
   } else if (startEdit) {
     Fonction[inc][inccolor] = In.toInt();

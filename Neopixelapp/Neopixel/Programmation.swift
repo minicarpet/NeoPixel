@@ -54,6 +54,11 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         centralManagerDidUpdateState(CM)
         myPeripheral?.delegate = self
         TableView.reloadData()
+        if synchro {
+            LoadLabel.isHidden = true
+            LoadActivity.isHidden = true
+            LoadProgress.isHidden = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -108,7 +113,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     }
     
     private func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : AnyObject], rssi RSSI: NSNumber) {
-        print(peripheral.name)
+        print(peripheral.name ?? "no Name")
         if peripheral.name == "NeoPixel" {
             myPeripheral = peripheral
             CM.connect(myPeripheral!, options: nil)
