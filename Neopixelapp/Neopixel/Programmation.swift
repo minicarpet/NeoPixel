@@ -29,6 +29,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         refreshControl.addTarget(self, action: #selector(self.changeBrightness), for: UIControlEvents.valueChanged)
         self.TableView.addSubview(refreshControl)
         
+        LoadActivity.startAnimating()
         LoadLabel.isHidden = false
         LoadActivity.isHidden = false
         LoadProgress.isHidden = false
@@ -55,6 +56,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         myPeripheral?.delegate = self
         TableView.reloadData()
         if synchro {
+            LoadActivity.stopAnimating()
             LoadLabel.isHidden = true
             LoadActivity.isHidden = true
             LoadProgress.isHidden = true
@@ -159,7 +161,7 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
             self.TableView.reloadData()
             self.view.addSubview(self.grayViewEffect)
             self.LoadProgress.setProgress(0, animated: false)
-            self.LoadActivity.stopAnimating()
+            self.LoadActivity.startAnimating()
             self.LoadLabel.isHidden = false
             self.LoadActivity.isHidden = false
             self.LoadProgress.isHidden = false

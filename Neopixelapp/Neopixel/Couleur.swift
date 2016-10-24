@@ -44,6 +44,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         super.viewDidLoad()
         
         subView.backgroundColor = UIColor.white
+        LoadActivity.startAnimating()
         LoadLabel.isHidden = false
         LoadActivity.isHidden = false
         LoadProgress.isHidden = false
@@ -56,6 +57,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
         CM = CBCentralManager(delegate: self, queue: nil)
         myPeripheral?.delegate = self
         if synchro {
+            LoadActivity.startAnimating()
             LoadLabel.isHidden = true
             LoadActivity.isHidden = true
             LoadProgress.isHidden = true
@@ -206,6 +208,7 @@ class Couleur: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate 
                     Programs.append(buffer)
                     LoadProgress.setProgress(Float(Programs.count/numFunction), animated: true)
                     if Programs.count == numFunction {
+                        LoadActivity.stopAnimating()
                         synchro = true
                         LoadLabel.isHidden = true
                         LoadActivity.isHidden = true
