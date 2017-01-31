@@ -40,19 +40,12 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        /*print("change delegate")
-        CM = CBCentralManager(delegate: self, queue: nil)
-        centralManagerDidUpdateState(CM)
-        myPeripheral?.delegate = self
-        TableView.reloadData()*/
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        print("change delegate")
         CM = CBCentralManager(delegate: self, queue: nil)
-        centralManagerDidUpdateState(CM)
         myPeripheral?.delegate = self
         TableView.reloadData()
         if synchro {
@@ -93,7 +86,6 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        print("delegate2")
         if central.state.rawValue == 4 {
             // BLE IS OFF
             let AlertMessage = UIAlertController(title: "Bluetooth désactivé", message: "Merci d'activer le Bluetooth", preferredStyle: .alert)
@@ -108,14 +100,12 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
                     CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
                 }
             } else {
-                print("scan")
                 CM.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
             }
         }
     }
     
     private func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : AnyObject], rssi RSSI: NSNumber) {
-        print(peripheral.name ?? "no Name")
         if peripheral.name == "NeoPixel" {
             myPeripheral = peripheral
             CM.connect(myPeripheral!, options: nil)
@@ -148,7 +138,6 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("Dsiconnected")
         myPeripheral = nil
         myPeripheral?.delegate = nil
         AlertBLE = UIAlertController()
@@ -156,7 +145,6 @@ class Programmation: UIViewController, CBCentralManagerDelegate, CBPeripheralDel
         AlertBLE.message = "Nous avons perdu la connexion avec l'Arduino"
         AlertBLE.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(alert: UIAlertAction!) in
             synchro = false
-            print("Here")
             Programs.removeAll(keepingCapacity: false)
             self.TableView.reloadData()
             self.view.addSubview(self.grayViewEffect)
