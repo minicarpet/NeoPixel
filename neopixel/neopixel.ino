@@ -46,7 +46,6 @@ bool waitnextValue = false;
 bool subscribe = false;
 
 void setup() {
-  Serial.begin(115200);
   readData();
   record();
   pinMode(13, OUTPUT); // use the LED on pin 13 as an output
@@ -124,8 +123,6 @@ void execute(int toExecute, int red, int green, int blue, int delai) {
 
 void readData() {
   nombreFc = EEPROM.read(0);
-  Serial.print("nb func : ");
-  Serial.println(int(nombreFc));
   if (nombreFc == 0) {
     //If never write
     return; //We don't overwrite Fonction's array to keep some functions at the first lunch
@@ -138,15 +135,10 @@ void readData() {
   for(int i=0; i<nombreFc; i++) {
     if (inc <= EEPROM.length()) {
       Fonction[i][0] = EEPROM.read(inc++);
-      Serial.println(Fonction[i][0]);
       Fonction[i][1] = EEPROM.read(inc++);
-      Serial.println(Fonction[i][1]);
       Fonction[i][2] = EEPROM.read(inc++);
-      Serial.println(Fonction[i][2]);
       Fonction[i][3] = EEPROM.read(inc++);
-      Serial.println(Fonction[i][3]);
       Fonction[i][4] = EEPROM.read(inc++);
-      Serial.println(Fonction[i][4]);
     } else {
       //ERROR
     }
@@ -157,8 +149,6 @@ void readData() {
 void record() {
   inc = 1;
   EEPROM.update(0, nombreFc);
-  Serial.print("number register : ");
-  Serial.println(int(nombreFc));
   for(int i=0; i<nombreFc; i++) {
     if (Fonction[i][0] != 0) {
       if (inc+5 <= EEPROM.length()) {
@@ -293,7 +283,6 @@ const unsigned char* tocstChar(String entry) {
 void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& characteristic) {
   // central wrote new value to characteristic, update LED
   String In = toString(RxChar.value(), RxChar.valueLength());
-  Serial.println(In);
   if(In == "Start") {
     startEdit = true;
     inc = 0;
@@ -305,17 +294,9 @@ void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& charact
     startEdit = false;
     ColorChoosen = false;
     nombreFc = inc;
-    Serial.print("num func receive : ");
-    Serial.println(inc);
     record();
   } else if (startEdit) {
     Fonction[inc][inccolor] = In.toInt();
-    Serial.print("inc : ");
-    Serial.println(inc);
-    Serial.print("inccolor : ");
-    Serial.println(inccolor);
-    Serial.print("Fonction : ");
-    Serial.println(Fonction[inc][inccolor]);
     inccolor++;
     if(inccolor == 5) {
       inc++;
@@ -348,10 +329,7 @@ void sendData() {
   TxChar.setValue(int(nombreFc));
   for(int i=0; i<nombreFc; i++) {
     if (Fonction[i][0] != 0) {
-      Serial.print("Send data of function : ");
-      Serial.println(i);
       TxChar.setValue(Fonction[i][0]);
-      Serial.println(Fonction[i][0]);
       TxChar.setValue(Fonction[i][1]);
       TxChar.setValue(Fonction[i][2]);
       TxChar.setValue(Fonction[i][3]);
