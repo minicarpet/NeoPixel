@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <declare-styleable name="ColorCircle">
-        <attr name="circle_originX" format="dimension"/>
-        <attr name="circle_originY" format="dimension"/>
-        <attr name="circle_sizeX" format="dimension"/>
-        <attr name="circle_sizeY" format="dimension"/>
+        <attr name="circle_originX" format="dimension" />
+        <attr name="circle_originY" format="dimension" />
+        <attr name="circle_sizeX" format="dimension" />
+        <attr name="circle_sizeY" format="dimension" />
         <attr name="circle_radius" format="dimension" />
-        <attr name="pointer_color" format="color"/>
+        <attr name="pointer_color" format="color" />
         <attr name="pointer_radius" format="dimension" />
         <attr name="pointer_stroke_width" format="dimension" />
     </declare-styleable>
-
 </resources>

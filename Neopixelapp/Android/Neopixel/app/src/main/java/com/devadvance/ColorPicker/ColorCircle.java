@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.SweepGradient;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -21,24 +19,22 @@ import com.example.logangalloisext.Neopixel.R;
 
 public class ColorCircle extends View {
 
+    protected static final float DEFAULT_RADIUS = 250.0f;
+    protected static final float DEFAULT_RADIUS_POINTER = 10.0f;
+    protected OnColorCircleListener mOnColorCircleListener;
     private Paint paint;
     private float origin[] = {0.0f, 0.0f};
     private float size[] = {0.0f, 0.0f};
     private float position[] = {0.0f, 0.0f};
     private double angle = 0;
     private RectF rectF;
-    private float value;
+    private float luminosity;
     private float radius;
     private float originX;
     private float originY;
-    private int defaultColor;
     private int defaultColorPointer;
     private float radiusPointer;
     private float strokePointer;
-    protected OnColorCircleListener mOnColorCircleListener;
-
-    protected static final float DEFAULT_RADIUS = 250.0f;
-    protected static final float DEFAULT_RADIUS_POINTER = 10.0f;
 
     public ColorCircle(Context context) {
         super(context);
@@ -56,16 +52,11 @@ public class ColorCircle extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        value = 1.0f;
+        luminosity = 1.0f;
         final TypedArray attrArray = getContext().obtainStyledAttributes(attrs, R.styleable.ColorCircle, defStyle, 0);
         radius = attrArray.getDimension(R.styleable.ColorCircle_circle_radius, DEFAULT_RADIUS);
-        this.post(new Runnable() {
-            @Override
-            public void run() {
-                originX = attrArray.getDimension(R.styleable.ColorCircle_circle_originX, getMeasuredWidth()/2);
-                originY = attrArray.getDimension(R.styleable.ColorCircle_circle_originY, getMeasuredHeight()/2);
-            }
-        });
+        originX = attrArray.getDimension(R.styleable.ColorCircle_circle_originX, 255);
+        originY = attrArray.getDimension(R.styleable.ColorCircle_circle_originY, 255);
         defaultColorPointer = attrArray.getColor(R.styleable.ColorCircle_pointer_color, Color.BLACK);
         radiusPointer = attrArray.getDimension(R.styleable.ColorCircle_pointer_radius, DEFAULT_RADIUS_POINTER);
         strokePointer = attrArray.getDimension(R.styleable.ColorCircle_pointer_stroke_width, 5.0f);
@@ -79,10 +70,12 @@ public class ColorCircle extends View {
         paint = new Paint();
         origin[0] = originX;
         origin[1] = originY;
+        Log.d("OriginX", Float.toString(originX));
+        Log.d("OriginY", Float.toString(originY));
         canvas.translate(origin[0], origin[1]);
         size[0] = radius;
         size[1] = size[0];
-        float hsv[] = {0.0f,1.0f,value};
+        float hsv[] = {0.0f, 1.0f, luminosity};
         rectF = new RectF(-size[0], -size[1], size[0], size[1]);
         for (i = 0; i < 360; i++) {
             hsv[0] = i;
@@ -90,19 +83,23 @@ public class ColorCircle extends View {
             canvas.drawArc(rectF, i, 2.0f, true, paint);
         }
         paint.setColor(Color.WHITE);
-        canvas.drawCircle(0, 0, radius/10.0f, paint);
+        canvas.drawCircle(0, 0, radius / 10.0f, paint);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokePointer);
         paint.setColor(defaultColorPointer);
         canvas.drawCircle(position[0], position[1], radiusPointer, paint);
+
+        paint.setStrokeWidth(0.1f);
+        paint.setColor(Color.BLACK);
+        canvas.drawCircle(0, 0, radius, paint);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int desiredWidth = (int) (radius*2+DEFAULT_RADIUS_POINTER);
-        int desiredHeight = (int) (radius*2+DEFAULT_RADIUS_POINTER);
+        int desiredWidth = (int) (radius * 2 + DEFAULT_RADIUS_POINTER);
+        int desiredHeight = (int) (radius * 2 + DEFAULT_RADIUS_POINTER);
 
         int width;
         int height;
@@ -144,19 +141,22 @@ public class ColorCircle extends View {
                 position[0] = distanceXFromCircleCenter;
                 position[1] = distanceYFromCircleCenter;
                 angle = (Math.toDegrees(-Math.atan2(distanceYFromCircleCenter, distanceXFromCircleCenter)) + 360.0) % 360.0;
-                if(distance > radius) {
-                    position[0] = (float) (radius * Math.sin(Math.toRadians(angle)+(Math.PI/2)));
-                    position[1] = (float) (radius * Math.cos(Math.toRadians(angle)+(Math.PI/2)));
-                } else if (distance < radius/10.0f) {
+                if (distance > radius) {
+                    position[0] = (float) (radius * Math.sin(Math.toRadians(angle) + (Math.PI / 2)));
+                    position[1] = (float) (radius * Math.cos(Math.toRadians(angle) + (Math.PI / 2)));
+                } else if (distance < radius / 10.0f) {
                     position[0] = 0;
                     position[1] = 0;
                     angle = 400;
                 }
                 invalidate();
+                if (mOnColorCircleListener != null) {
+                    mOnColorCircleListener.onValueChanged(this, getColor(), (int) (getLuminosity() * 100));
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                if(mOnColorCircleListener != null) {
-                    mOnColorCircleListener.onRelease(this, getColor(), (int) (getValue() * 100));
+                if (mOnColorCircleListener != null) {
+                    mOnColorCircleListener.onRelease(this, getColor(), (int) (getLuminosity() * 100));
                 }
                 break;
             default:
@@ -170,27 +170,30 @@ public class ColorCircle extends View {
         mOnColorCircleListener = l;
     }
 
-    public interface OnColorCircleListener {
-        void onRelease(View view, int color, int luminosity);
-    }
-
     public int getColor() {
         int color;
         if (angle == 400) {
             color = Color.WHITE;
         } else {
-            float hsv[] = {(float) (Math.abs(angle-720) % 360.0),1.0f,1.0f};
-            color = Color.HSVToColor(0, hsv);
+            float hsv[] = {(float) (Math.abs(angle - 720) % 360.0), 1.0f, luminosity};
+            color = Color.HSVToColor(hsv);
         }
         return color;
     }
 
-    public void setValue(float newValue) {
-        value = newValue;
-        invalidate();
+    public float getLuminosity() {
+        return luminosity;
     }
 
-    public float getValue() {
-        return value;
+    public void setLuminosity(float newValue) {
+        if((newValue > 0.0f) && (newValue < 1.0f)) {
+            luminosity = newValue;
+            invalidate();
+        }
+    }
+
+    public interface OnColorCircleListener {
+        void onRelease(View view, int color, int luminosity);
+        void onValueChanged(View view, int color, int luminosity);
     }
 }
